@@ -1,12 +1,17 @@
-import { Context, h } from 'koishi'
+import { Context, h, $ } from 'koishi'
 import { Config } from 'koishi/lib/worker/daemon';
 
 export const name = 'group-invite'
 
 export * from './config'
 
-export const memberEvents=name+'_events_member';
+export const memberEvents='invite_events_member';
 
+declare module 'koishi' {
+  interface Tables {
+    invite_events_member: memberEvents
+  }
+}
 export interface memberEvents {
   id: number
   message_id: string
@@ -104,8 +109,9 @@ export function apply(ctx: Context,config:Config) {
     return next();
   })
   async function queryEndGuildRequest(userId:string,guildId:string) {
-    let maxid=await ctx.database.eval(memberEvents,{$max:'id'}, { events_type:{ $eq:'guild-request' }, from_user_id:{ $eq:userId  }, from_channel_id:{ $eq:guildId } })
-    let memberEventsArr=await ctx.database.get(memberEvents,{ id:{ $eq:maxid } })
+    // let maxid=await ctx.database.eval(memberEvents,{ $max:'id' }, { events_type:{ $eq:'guild-request' }, from_user_id:{ $eq:userId  }, from_channel_id:{ $eq:guildId } })
+    // let memberEventsArr=await ctx.database.get(memberEvents,{ id:{ $eq:maxid } })
+    let memberEventsArr=await ctx.database.get(memberEvents, { events_type:{ $eq:'guild-request' }, from_user_id:{ $eq:userId  }, from_channel_id:{ $eq:guildId }  },{ limit:1, sort:{ time:'desc' } })
     if(memberEventsArr.length>0)
       return memberEventsArr[0]['message_id']
     return undefined;
