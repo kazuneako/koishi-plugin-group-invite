@@ -8,6 +8,13 @@
     "lib",
     "dist"
   ],
+  "contributors": [                         
+    "KazuneAko <kazuneako@gmail.com>"
+  ],
+  "repository": {                           
+    "type": "git",
+    "url": "git+https://github.com/kazuneako/koishi-plugin-group-invite.git"
+  },
   "license": "MIT",
   "scripts": {},
   "keywords": [
