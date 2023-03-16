@@ -66,8 +66,10 @@ export function apply(ctx: Context,config:Config) {
       //官方（群）
       // let official=session.app.plugin(name).runtime.config.official
       let official=config['official']
-      session.bot.sendMessage(official, content,official)
-      session.bot.sendPrivateMessage(masterId, content)
+      if(masterId != null && masterId != '')
+        session.bot.sendPrivateMessage(masterId, content);
+      if(official != null && official != '')
+        session.bot.sendMessage(official, content, official);
       ctx.database.create(memberEvents, {
         message_id: session.messageId,
         events_type: 'guild-request',
