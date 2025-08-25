@@ -1,17 +1,17 @@
 {
   "name": "koishi-plugin-group-invite",
   "description": "群邀请插件",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist"
   ],
-  "contributors": [                         
+  "contributors": [
     "KazuneAko <kazuneako@gmail.com>"
   ],
-  "repository": {                           
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/kazuneako/koishi-plugin-group-invite.git"
   },
